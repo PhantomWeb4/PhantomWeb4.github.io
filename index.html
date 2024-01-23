@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Cartes</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+    
+            #game-board {
+                display: flex;
+                flex-wrap: wrap;
+            }
+    
+            .card {
+                width: 100px;
+                height: 150px;
+                margin: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 20px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="game-board">
+            <!-- Cartes seront ajoutées ici via JavaScript -->
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+                const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+                const deck = [];
+    
+                // Générer le jeu de cartes complet
+                for (const suit of suits) {
+                    for (const card of cards) {
+                        deck.push({ suit, card });
+                    }
+                }
+    
+                // Mélanger les cartes en utilisant l'algorithme de Fisher-Yates
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
+    
+                // Distribuer les cartes sur le plateau de jeu
+                const gameBoard = document.getElementById('game-board');
+    
+                deck.forEach((card, index) => {
+                    const cardElement = document.createElement('div');
+                    cardElement.classList.add('card');
+                    cardElement.textContent = `${card.card} ${card.suit.charAt(0)}`;
+                    cardElement.addEventListener('click', () => handleCardClick(cardElement, card));
+                    gameBoard.appendChild(cardElement);
+                });
+    
+                // Fonction appelée lorsqu'une carte est cliquée
+                function handleCardClick(cardElement, card) {
+                    // Ajoutez ici la logique du jeu en fonction du clic sur une carte
+                    console.log(`Carte cliquée: ${card.card} ${card.suit}`);
+                }
+            });
+        </script>
+    </body>
+    </html>
+
+   
